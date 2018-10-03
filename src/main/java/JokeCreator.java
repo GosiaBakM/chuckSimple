@@ -14,12 +14,10 @@ public class JokeCreator {
 
     public void getJson() throws IOException {
         URL urlUse = new URL("https://api.chucknorris.io/jokes/random");
-        HttpURLConnection connection = null;
-        connection = (HttpURLConnection) urlUse.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) urlUse.openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-length", "application/json");
         connection.connect();
-
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuffer response = new StringBuffer();
         String inputLine;
@@ -28,6 +26,7 @@ public class JokeCreator {
             response.append(inputLine);
         }
         in.close();
+
         ObjectMapper objectMapper = new ObjectMapper();
         Joke joke = new Joke();
         joke = objectMapper.readValue(response.toString(), Joke.class);
